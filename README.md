@@ -1,3 +1,6 @@
+> [!NOTE]
+> This is exclusively a **vibes only** repo - a playground for cloud based autonomous coding agents like Codex Web and Claude Code Web.
+
 # PHP docs ➜ NotebookLM (GitHub Pages web app)
 
 You asked for **no CLI hassle**. This project is now a browser app you can host on GitHub Pages.
