@@ -1,4 +1,4 @@
-> [!NOTE]
+> [!WARNING]
 > This is exclusively a **vibes only** repo - a playground for cloud based autonomous coding agents like Codex Web and Claude Code Web.
 
 # PHP docs ➜ NotebookLM (GitHub Pages web app)
