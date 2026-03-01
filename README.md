@@ -1,36 +1,37 @@
-# PHP docs ➜ NotebookLM bundle builder
+# PHP docs ➜ NotebookLM (GitHub Pages web app)
 
-This repo now includes a script that converts the **official PHP manual HTML distribution** into NotebookLM-friendly inputs.
+You asked for **no CLI hassle**. This project is now a browser app you can host on GitHub Pages.
 
-## Why this helps
+## What changed
 
-- NotebookLM supports a maximum of 50 uploads per notebook.
-- The PHP docs are split across thousands of pages.
-- This script merges pages into up to 50 large `.html` files.
-- Each merged section includes the **canonical php.net URL**, so citations are still readable in NotebookLM source view (instead of opaque raw text).
+- A static web app lives in `docs/`.
+- It runs fully in-browser (no backend, no local Python needed).
+- It converts the official PHP manual tarball into NotebookLM-ready HTML bundles.
+- Every merged section includes the canonical `php.net` URL so NotebookLM citations are readable in source view.
 
-## Usage
+## Use it
+
+After GitHub Pages is enabled for this repo, open your site and:
+
+1. Click **Fetch from URL** (or upload a local `php_manual_en.tar.gz` file).
+2. Set max bundles (default 50).
+3. Click **Build bundle zip**.
+4. Click **Download zip** and upload the generated HTML files to NotebookLM.
+
+## Hosting on GitHub Pages
+
+This repo includes `.github/workflows/pages.yml` to deploy `docs/` automatically.
+
+- Push to `main`.
+- In GitHub repo settings, ensure Pages uses **GitHub Actions**.
+- Your app will be published at `https://<user>.github.io/<repo>/`.
+
+## Local preview (optional)
+
+If you want to test locally:
 
 ```bash
-python3 tools/build_notebooklm_php_manual.py --output-dir dist/php-notebooklm --max-files 50
+python3 -m http.server 8080 --directory docs
 ```
 
-### What it does
-
-1. Downloads the official tarball from `https://www.php.net/distributions/manual/php_manual_en.tar.gz`.
-2. Extracts HTML pages.
-3. Splits them into evenly sized bundles.
-4. Writes files like:
-   - `php-manual-bundle-01-of-50.html`
-   - ...
-   - `php-manual-bundle-50-of-50.html`
-5. Writes `manifest.json` listing every source page and which bundle it landed in.
-
-## Notes
-
-- Output is HTML (not raw `.txt`), which improves NotebookLM source readability.
-- You can test quickly with fewer pages:
-
-```bash
-python3 tools/build_notebooklm_php_manual.py --max-pages 20 --max-files 3 --output-dir dist/smoke
-```
+Then open `http://localhost:8080`.
