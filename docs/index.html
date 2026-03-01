@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>PHP Docs → NotebookLM Bundler</title>
+    <style>
+      :root { color-scheme: light dark; }
+      body {
+        font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+        max-width: 900px;
+        margin: 2rem auto;
+        padding: 0 1rem 4rem;
+        line-height: 1.45;
+      }
+      .card {
+        border: 1px solid #8b8b8b66;
+        border-radius: 12px;
+        padding: 1rem;
+        margin-bottom: 1rem;
+      }
+      label { display: block; margin: 0.6rem 0 0.2rem; font-weight: 600; }
+      input, button {
+        font: inherit;
+      }
+      input[type="number"], input[type="url"] {
+        width: min(420px, 100%);
+        padding: 0.5rem;
+      }
+      button {
+        padding: 0.6rem 0.9rem;
+        border-radius: 8px;
+        border: 1px solid #8b8b8b66;
+        cursor: pointer;
+      }
+      .row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1rem;
+        align-items: flex-end;
+      }
+      .status {
+        white-space: pre-wrap;
+        background: #8b8b8b22;
+        border-radius: 8px;
+        padding: 0.75rem;
+        min-height: 3rem;
+      }
+      .small { font-size: 0.95rem; opacity: 0.9; }
+      code { background: #8b8b8b30; padding: 0.1rem 0.3rem; border-radius: 4px; }
+    </style>
+  </head>
+  <body>
+    <h1>PHP Docs → NotebookLM Bundler</h1>
+    <p>
+      Create NotebookLM-friendly HTML bundles from the official PHP manual with no CLI.
+      This app runs entirely in your browser and outputs a zip you can upload.
+    </p>
+
+    <div class="card">
+      <h2>1) Provide the PHP manual archive</h2>
+      <p class="small">
+        Default source: <code>https://www.php.net/distributions/manual/php_manual_en.tar.gz</code>.
+        If direct download fails (CORS/network), download it manually and use file upload.
+      </p>
+      <label for="manualUrl">Tarball URL</label>
+      <input id="manualUrl" type="url" value="https://www.php.net/distributions/manual/php_manual_en.tar.gz" />
+      <div class="row" style="margin-top: 0.7rem">
+        <button id="fetchBtn" type="button">Fetch from URL</button>
+        <input id="fileInput" type="file" accept=".gz,.tgz,.tar.gz" />
+      </div>
+      <p id="archiveInfo" class="small">No archive loaded yet.</p>
+    </div>
+
+    <div class="card">
+      <h2>2) Build settings</h2>
+      <label for="maxFiles">Max upload files (NotebookLM limit = 50)</label>
+      <input id="maxFiles" type="number" min="1" max="50" value="50" />
+
+      <label for="maxPages">Optional page cap (blank = all pages)</label>
+      <input id="maxPages" type="number" min="1" placeholder="for quick tests" />
+
+      <div class="row" style="margin-top: 0.8rem">
+        <button id="buildBtn" type="button" disabled>Build bundle zip</button>
+        <button id="downloadBtn" type="button" disabled>Download zip</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>3) Status</h2>
+      <div id="status" class="status">Ready.</div>
+    </div>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>
